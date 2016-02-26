@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mongoid-api-base (0.1.0)
+    mongoid-api-base (0.1.1)
       kaminari
       mongoid (~> 5.0)
       rails (~> 4.2.5.1)
@@ -60,7 +60,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mime-types (2.99)
+    mime-types (2.99.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     mongo (2.2.3)
