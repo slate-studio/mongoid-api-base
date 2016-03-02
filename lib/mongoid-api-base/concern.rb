@@ -158,6 +158,7 @@ module MongoidApiBase
     def json_default_methods
       [ :created_at,
         :updated_at,
+        :slug,
         :_position,
         :_list_item_title,
         :_list_item_subtitle,
