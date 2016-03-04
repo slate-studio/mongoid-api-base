@@ -84,7 +84,7 @@ module MongoidApiBase
     def get_object_version(object)
       version = params[:version]
       if version && object.respond_to?(:undo, true)
-        object.undo(nil, from: version.to_i + 1, to: resource.version)
+        object.undo(nil, from: version.to_i + 1, to: object.version)
         object.version = version
       end
       object
