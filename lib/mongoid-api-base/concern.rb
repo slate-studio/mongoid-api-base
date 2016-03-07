@@ -109,7 +109,7 @@ module MongoidApiBase
     end
 
     def page
-      @page ||= params[:page] || 1
+      @page ||= params[:page] || false
     end
 
     def per_page
