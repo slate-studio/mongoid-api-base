@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
   s.version          = MongoidApiBase::VERSION
   s.platform         = Gem::Platform::RUBY
 
-  s.add_dependency "rails", MongoidApiBase::RAILS_VERSION
   # Ruby ODM framework for MongoDB
   s.add_dependency "mongoid", "~> 5.0"
   # Clean, powerful, customizable and sophisticated paginator
