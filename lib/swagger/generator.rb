@@ -77,10 +77,9 @@ module SwaggerGenerator
       name   = resource_name
       plural = collection_name
       path   = plural.underscore
-      tag    = path.singularize
-      tags   = [ tag ]
+      tags   = [ plural ]
 
-      swagger_path "/#{ path }.json" do
+      swagger_path "/#{ path }" do
         operation :get do
           key :tags, tags
           key :operationId, "find#{ plural }"
@@ -123,7 +122,7 @@ module SwaggerGenerator
           key :operationId, "add#{ plural }"
           key :produces,    %w(application/json)
           parameter do
-            key :name,     :user
+            key :name,     name.underscore.to_sym
             key :in,       :body
             key :required, true
             # schema do
@@ -138,7 +137,7 @@ module SwaggerGenerator
         end
       end
 
-      swagger_path "/#{ path }/{id}.json" do
+      swagger_path "/#{ path }/{id}" do
         operation :get do
           key :tags, tags
           key :operationId, "find#{ name }ById"
@@ -167,7 +166,7 @@ module SwaggerGenerator
             key :type,     :string
           end
           parameter do
-            key :name,     :user
+            key :name,     name.underscore.to_sym
             key :in,       :body
             key :required, true
             # schema do
@@ -191,7 +190,7 @@ module SwaggerGenerator
             key :type,     :string
           end
           response 204 do
-            key :description, "#{ tag } deleted"
+            key :description, "#{ name } deleted"
           end
         end
       end
