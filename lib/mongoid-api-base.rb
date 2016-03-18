@@ -1,5 +1,7 @@
-require "csv"
-require "action_controller/metal/renderers"
-require "renderers/csv"
-require "mongoid-api-base/version"
-require "mongoid-api-base/concern"
+require 'csv'
+require 'action_controller/metal/renderers'
+require 'renderers/csv'
+require 'swagger/blocks'
+require 'swagger/generator'
+require 'mongoid-api-base/version'
+require 'mongoid-api-base/concern'
