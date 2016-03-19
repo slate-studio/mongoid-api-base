@@ -1,9 +1,10 @@
 PATH
   remote: .
   specs:
-    mongoid-api-base (0.1.5)
+    mongoid-api-base (0.1.6)
       kaminari
       mongoid (~> 5.0)
+      swagger-blocks
 
 GEM
   remote: http://rubygems.org/
@@ -63,6 +64,7 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    swagger-blocks (1.3.2)
     thread_safe (0.3.5)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)

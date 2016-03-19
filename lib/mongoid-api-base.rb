@@ -1,3 +1,4 @@
+require 'kaminari'
 require 'csv'
 require 'action_controller/metal/renderers'
 require 'renderers/csv'
