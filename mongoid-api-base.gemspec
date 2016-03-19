@@ -24,6 +24,4 @@ Gem::Specification.new do |s|
   s.add_dependency 'kaminari'
   # DSL for pure Ruby code blocks that can be turned into JSON
   s.add_dependency 'swagger-blocks'
-  # Clean, powerful, customizable and sophisticated paginator
-  s.add_dependency 'kaminari'
 end
