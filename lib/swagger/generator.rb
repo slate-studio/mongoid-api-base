@@ -1,3 +1,9 @@
+# EXTRA LINKS:
+# - https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md
+# - https://github.com/fotinakis/swagger-blocks
+# - https://github.com/westfieldlabs/apivore
+# - https://github.com/notonthehighstreet/svelte
+
 module SwaggerGenerator
   extend ActiveSupport::Concern
 
@@ -6,6 +12,9 @@ module SwaggerGenerator
   end
 
   class_methods do
+    REJECT_NAMES = %w(_id _keywords created_at updated_at).freeze
+    ALLOW_TYPES  = %w(Object String)
+
     def generate_swagger
       generate_swagger_schemas
       generate_swagger_paths
@@ -29,48 +38,22 @@ module SwaggerGenerator
       end
 
       swagger_schema name do
-      #   key :required, %w(name email)
+        # TODO: autogenerate list of required fields
+        # key :required, %w(name email)
 
-      #   property :created_at do
-      #     key :type,   :string
-      #     key :format, 'date-time'
-      #   end
-
-      #   property :updated_at do
-      #     key :type,   :string
-      #     key :format, 'date-time'
-      #   end
-
-      #   property :name do
-      #     key :type, :string
-      #   end
-
-      #   property :email do
-      #     key :type, :string
-      #   end
+        resource_class.fields.each do |name, options|
+          type = options.type.to_s
+          if ALLOW_TYPES.include? type
+            unless REJECT_NAMES.include? name
+              property name do
+                key :type, :string
+                # TODO: autodetect property type
+                # key :format, 'date-time'
+              end
+            end
+          end
+        end
       end
-
-      # swagger_schema :UserInput do
-      #   key :required, %w(name email password password_confirmation)
-
-      #   property :name do
-      #     key :type, :string
-      #   end
-
-      #   property :email do
-      #     key :type, :string
-      #   end
-
-      #   property :password do
-      #     key :type,   :string
-      #     key :format, :password
-      #   end
-
-      #   property :password_confirmation do
-      #     key :type,   :string
-      #     key :format, :password
-      #   end
-      # end
     end
 
     def generate_swagger_paths
@@ -82,7 +65,7 @@ module SwaggerGenerator
       swagger_path "/#{ path }" do
         operation :get do
           key :tags, tags
-          key :operationId, "find#{ plural }"
+          key :operationId, "index#{ plural }"
           key :produces, %w(application/json text/csv)
 
           parameter do
@@ -119,15 +102,15 @@ module SwaggerGenerator
 
         operation :post do
           key :tags, tags
-          key :operationId, "add#{ plural }"
+          key :operationId, "create#{ plural }"
           key :produces,    %w(application/json)
           parameter do
             key :name,     name.underscore.to_sym
-            key :in,       :body
+            key :in,       :form
             key :required, true
-            # schema do
-            #   key :'$ref', :UserInput
-            # end
+            schema do
+              key :'$ref', name # input
+            end
           end
           response 200 do
             schema do
@@ -140,7 +123,7 @@ module SwaggerGenerator
       swagger_path "/#{ path }/{id}" do
         operation :get do
           key :tags, tags
-          key :operationId, "find#{ name }ById"
+          key :operationId, "show#{ name }ById"
           key :produces,    %w(application/json)
           parameter do
             key :name,     :id
@@ -167,11 +150,11 @@ module SwaggerGenerator
           end
           parameter do
             key :name,     name.underscore.to_sym
-            key :in,       :body
+            key :in,       :form
             key :required, true
-            # schema do
-            #   key :'$ref', :UserInput
-            # end
+            schema do
+              key :'$ref', name # input
+            end
           end
           response 200 do
             schema do
